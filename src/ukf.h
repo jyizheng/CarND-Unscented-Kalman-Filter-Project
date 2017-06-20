@@ -102,6 +102,32 @@ public:
    * @param meas_package The measurement at k+1
    */
   void UpdateRadar(MeasurementPackage meas_package);
-};
 
+  void AugmentedSigmaPoints(MatrixXd* Xsig_out);
+
+  void SigmaPointPrediction(MatrixXd* Xsig_pred_out,
+                                 MatrixXd* Xsig_in,
+                                 double delta_t);
+  void CalculateWeights();
+
+  void PredictMeanAndCovariance(VectorXd* x_out,
+                                MatrixXd* P_out);
+
+  void PredictMeasurementRadar(VectorXd* z_out,
+                               MatrixXd* S_out,
+                               MatrixXd* Zsig_out);
+
+  void PredictMeasurementLaser(VectorXd* z_out,
+                                    MatrixXd* S_out);
+
+  void UpdateStateRadar(VectorXd* x_out, MatrixXd* P_out,
+                           VectorXd* x_pred, MatrixXd* P_pred,
+                           MatrixXd* Zsig_in, VectorXd* z_pred_in,
+                           MatrixXd* S_in, VectorXd* z_in);
+
+  void UpdateStateLaser(VectorXd* x_out, MatrixXd* P_out,
+                           VectorXd* x_pred, MatrixXd* P_pred,
+                           MatrixXd* Zsig_in, VectorXd* z_pred_in,
+                           MatrixXd* S_in, VectorXd* z_in);
+};
 #endif /* UKF_H */
